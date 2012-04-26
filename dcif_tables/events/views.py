@@ -36,6 +36,8 @@ def get_tables(request):
     # Get the table numbers
     tables = [str(x.number) for x in tables]
     
+    tables = sorted(tables)
+    
     out = '<br>'.join(tables)
     
     return HttpResponse("There are %i outstanding tables.<br><br>Table #s:<br>%s" % (num_tables, out))
@@ -48,6 +50,8 @@ def get_tables_api(request):
 
     # Get the table numbers
     tables = [str(x.number) for x in tables]
+    
+    tables = sorted(tables)
 
     out = ','.join(tables)
 
