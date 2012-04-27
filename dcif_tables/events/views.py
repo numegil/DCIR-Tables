@@ -33,10 +33,14 @@ def get_tables(request):
     
     num_tables = len(tables)
     
-    # Get the table numbers
-    tables = [str(x.number) for x in tables]
+    # Get the table numbers (temporarily leave as ints for sorting)
+    tables = [x.number for x in tables]
     
+    # Sort
     tables = sorted(tables)
+    
+    # Convert to strings
+    tables = [str(x) for x in tables]
     
     out = '<br>'.join(tables)
     
@@ -48,10 +52,14 @@ def get_tables_api(request):
     # Clear all existing tables
     tables = Table.objects.all()
 
-    # Get the table numbers
-    tables = [str(x.number) for x in tables]
+    # Get the table numbers (temporarily leave as ints for sorting)
+    tables = [x.number for x in tables]
     
+    # Sort
     tables = sorted(tables)
+    
+    # Convert to strings
+    tables = [str(x) for x in tables]
 
     out = ','.join(tables)
 
