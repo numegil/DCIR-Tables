@@ -5,4 +5,5 @@ venv
 .project
 bin/
 gen/
-
+*.pbxproj
+xcuserdata/
