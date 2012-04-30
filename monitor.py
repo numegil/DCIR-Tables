@@ -3,14 +3,14 @@ from time import sleep
 from datetime import datetime
 
 # Change these to match your current tournament
-FILE_DIRECTORY = "/Users/numegil/Downloads"
-FILE_PREFIX = "WLOC"
+FILE_DIRECTORY = ""
+FILE_PREFIX = ""
 STARTING_TABLE = 1
 
 # Don't change this one unless you know what you're doing
 WEB_URL = "http://cold-galaxy-7337.herokuapp.com/set/"
 
-path = FILE_DIRECTORY + '/' + FILE_PREFIX + '303.dat'
+path = FILE_DIRECTORY + '\\' + FILE_PREFIX + '303.dat'
 
 m_time = 0
 while(True):
@@ -19,8 +19,14 @@ while(True):
     if m_time != os.path.getmtime(path):
         m_time = os.path.getmtime(path)
         
-        # Open the file
-        lines = open(path).read().split('\n')
+        # Open the file (It's possible to get an IOError if the file is currently being written to)
+        worked = False
+        while not worked:
+            try:
+                lines = open(path).read().split('\n')
+                worked = True
+            except IOError:
+                sleep(1)
         
         # Figure out what the current round is
         cur_round = 0
@@ -50,7 +56,7 @@ while(True):
                 continue 
             
             # If there's no match result, append it to outstanding tables
-            if chars[4] == '0' and chars[5] == '0':
+            if chars[4] == '0' and chars[5] == '0' and chars[6] == '0':
                 outstanding.append(str(i+STARTING_TABLE))
         
         # Construct our GET parameter
