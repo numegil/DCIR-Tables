@@ -11,16 +11,20 @@ def set_tables(request):
     # Make sure we have the right parameter
     if not request.GET.has_key('tables'):
         return HttpResponse("'tables' parameter not set!")
+		
+    if not request.GET.has_key('event'):
+        return HttpResponse("'event' parameter not set!")
         
     tables = request.GET['tables'].split(',')
     
-    # Clear all existing tables
-    Table.objects.all().delete()
+    # Clear all existing tables in the event
+    Table.objects.filter(event=request.GET['event']).delete()
     
     # Create new tables
     for table in tables:
         t = Table()
         t.number = int(table)
+		t.event = request.GET['event']
         t.save()
     
     return HttpResponse("Tables set successfully.")

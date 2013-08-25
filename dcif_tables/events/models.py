@@ -9,3 +9,4 @@ from django.utils.translation import ugettext_lazy as _
 
 class Table(models.Model):
     number = models.IntegerField()
+	event = models.CharField()

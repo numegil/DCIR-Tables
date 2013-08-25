@@ -3,6 +3,6 @@ from django.contrib import admin
 
 class TableAdmin(admin.ModelAdmin):
 
-    list_display = ('number',)
+    list_display = ('number', 'event')
 
 admin.site.register(Table, TableAdmin)
